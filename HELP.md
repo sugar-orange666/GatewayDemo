@@ -6,3 +6,8 @@
 3. 启动GatewayDemo  可以访问 http://localhost:9000/demo/one
 
 4. 可以访问 http://localhost:9000/demo/one?name=%22%E5%B0%8F%22&age=1
+
+注意事项：
+1.RemoteAddr 和Host都不要用127.0.0.1 用局域网的ip
+测试的时候cookie 可以在chrome f12 Application Cookie中新增name abc value124
+![img.png](img.png)
