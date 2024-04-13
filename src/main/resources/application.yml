@@ -1,0 +1,17 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: GatewayDemo
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 开启当前项目服务注册与发现功能
+          lower-case-service-id: true # 把服务名转换为小写，Eureka中默认都是大写
+      routes:
+        #list list类型且为范型，需要加‘-’
+        - id: one #id
+          uri: lb://project-demo # lb:loadBalance EUREKA-CLIENT 默认的负载均衡策略是轮询
+          predicates: Path=/one # 路径规则
+         # filters: StripPrefix=1 #转发后忽略第一层
