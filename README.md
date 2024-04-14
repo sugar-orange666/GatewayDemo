@@ -13,3 +13,5 @@ b站【尚学堂】SpringCloud Gateway微服务网关视频教程 跟练
 1. RemoteAddr 和Host都不要用127.0.0.1 用局域网的ip
 2. 测试的时候cookie 可以在chrome f12 Application Cookie中新增name abc value124(也可postman请求)
    ![img.png](img.png)
+3. 测试权重，ProjectDemo需要新建一个configuration,如下：
+![img_1.png](img_1.png)
