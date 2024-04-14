@@ -21,13 +21,13 @@ spring:
               args:
                 param: age
                 regexp: \d{1,3} #年龄必须是1到3位
-            - Header=Connection,keep-alive #请求头必须有这个参数，并且参数值是keep-alive
-            - Method=GET,POST #支持的方法类型
+            #- Header=Connection,keep-alive #请求头必须有这个参数，并且参数值是keep-alive
+            #- Method=GET,POST #支持的方法类型
             #- RemoteAddr=192.168.31.***
             #- RemoteAddr=127.0.0.1 #允许访问的远程地址，不能写127这个，要写局域网ip
             #- Host=192.168.31.xxx:9000  同样不能用127
             #- Cookie=abc,.{3} #cookie取值是3位
-            - Before=2028-01-30T15:00:00Z #在某个时间之前执行
-            - After=2024-01-01T00:00:00Z #在某个时间之后执行
-            - Between=2021-01-01T00:00:00Z,2028-01-30T15:00:00Z #在某个时间端内执行
+            #- Before=2028-01-30T15:00:00Z #在某个时间之前执行
+            #- After=2024-01-01T00:00:00Z #在某个时间之后执行
+            #- Between=2021-01-01T00:00:00Z,2028-01-30T15:00:00Z #在某个时间端内执行
          # filters: StripPrefix=1 #转发后忽略第一层
