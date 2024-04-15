@@ -14,13 +14,23 @@ spring:
         - id: one #id
           uri: lb://project-demo # lb:loadBalance EUREKA-CLIENT 默认的负载均衡策略是轮询
           predicates:
-            - Path=/demo/** # 路径规则
+            - Path=/demo/* # 路径规则
           filters:
+            - name: RequestRateLimiter #限流
+              args:
+                key-resolver: '#{@abcComponent}'
+                redis-rate-limiter.replenishRate: 1 #限流数量
+                redis-rate-limiter.burstCapacity: 3 #桶容量
             #- AddRequestHeader=name,abc #请求头必须加的参数
             #- AddRequestParameter=name,abc #给请求头中添加了参数
             #- AddResponseHeader=demo,123
             #- AddResponseHeader=demo,1234
             #- DedupeResponseHeader=demo #重名响应头保留最后一个,这个也不知道啥原因，测试的时候没起效果
+#            - name: RedirectTo #重定向
+#              args:
+#                status: 302
+#                url: https://www.zhihu.com/hot
+
 #            - Weight=test,1
             #不允许Query=name,age*  这个代表name的值必须是age*开头的，这里可以用正则匹配
             #- Query=name #必须包含请求参数名称，否则不进行路由
@@ -44,3 +54,7 @@ spring:
 #            - Path=/demo/** # 路径规则
 #            - Weight=test,9 #同一个要在同一个group内
 
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
