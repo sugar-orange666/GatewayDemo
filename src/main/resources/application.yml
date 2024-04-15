@@ -16,12 +16,16 @@ spring:
           predicates:
             - Path=/demo/* # 路径规则
           filters:
-            - StripPrefix=1
-            - name: RequestRateLimiter #限流
+            - name: MyRoute
               args:
-                key-resolver: '#{@abcComponent}'
-                redis-rate-limiter.replenishRate: 1 #限流数量
-                redis-rate-limiter.burstCapacity: 3 #桶容量
+                name: hello
+                age: 12
+#            - StripPrefix=1
+#            - name: RequestRateLimiter #限流
+#              args:
+#                key-resolver: '#{@abcComponent}'
+#                redis-rate-limiter.replenishRate: 1 #限流数量
+#                redis-rate-limiter.burstCapacity: 3 #桶容量
 #            - name: Hystrix    #这块儿实践的时候报错了，Unable to find GatewayFilterFactory with name Hystrix
 #              args:
 #                name: myFallbackTest
