@@ -15,3 +15,4 @@ b站【尚学堂】SpringCloud Gateway微服务网关视频教程 跟练
    ![img.png](img.png)
 3. 测试权重，ProjectDemo需要新建一个configuration,如下：
 ![img_1.png](img_1.png)
+4. 测试限流的时候，jmeter报错了，java.net.SocketException: Connection reset xxx 把ip地址localhost换成局域网ip就可以了
