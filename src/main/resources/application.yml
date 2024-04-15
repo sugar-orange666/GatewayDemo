@@ -14,17 +14,56 @@ spring:
         - id: one #id
           uri: lb://project-demo # lb:loadBalance EUREKA-CLIENT 默认的负载均衡策略是轮询
           predicates:
-            - Path=/demo/** # 路径规则
-            #不允许Query=name,age*  这个代表name的值必须是age*开头的，这里可以用正则匹配
-            - Query=name #必须包含请求参数名称，否则不进行路由
-            - name: Query
+            - Path=/demo/* # 路径规则
+          filters:
+            - name: MyRoute
               args:
-                param: age
-                regexp: \d{1,3} #年龄必须是1到3位
-            - Header=Connection,keep-alive #请求头必须有这个参数，并且参数值是keep-alive
-            - Method=GET,POST #支持的方法类型
+                name: hello
+                age: 12
+#            - StripPrefix=1
+#            - name: RequestRateLimiter #限流
+#              args:
+#                key-resolver: '#{@abcComponent}'
+#                redis-rate-limiter.replenishRate: 1 #限流数量
+#                redis-rate-limiter.burstCapacity: 3 #桶容量
+#            - name: Hystrix    #这块儿实践的时候报错了，Unable to find GatewayFilterFactory with name Hystrix
+#              args:
+#                name: myFallbackTest
+#                fallbackUri: forward:/one
+            #- AddRequestHeader=name,abc #请求头必须加的参数
+            #- AddRequestParameter=name,abc #给请求头中添加了参数
+            #- AddResponseHeader=demo,123
+            #- AddResponseHeader=demo,1234
+            #- DedupeResponseHeader=demo #重名响应头保留最后一个,这个也不知道啥原因，测试的时候没起效果
+            #            - name: RedirectTo #重定向
+            #              args:
+            #                status: 302
+            #                url: https://www.zhihu.com/hot
+
+            #            - Weight=test,1
+            #不允许Query=name,age*  这个代表name的值必须是age*开头的，这里可以用正则匹配
+            #- Query=name #必须包含请求参数名称，否则不进行路由
+            #- name: Query
+            #  args:
+            #    param: age
+            #   regexp: \d{1,3} #年龄必须是1到3位
+            #- Header=Connection,keep-alive #请求头必须有这个参数，并且参数值是keep-alive
+            #- Method=GET,POST #支持的方法类型
             #- RemoteAddr=192.168.31.***
             #- RemoteAddr=127.0.0.1 #允许访问的远程地址，不能写127这个，要写局域网ip
             #- Host=192.168.31.xxx:9000  同样不能用127
             #- Cookie=abc,.{3} #cookie取值是3位
-         # filters: StripPrefix=1 #转发后忽略第一层
+            #- Before=2028-01-30T15:00:00Z #在某个时间之前执行
+            #- After=2024-01-01T00:00:00Z #在某个时间之后执行
+            #- Between=2021-01-01T00:00:00Z,2028-01-30T15:00:00Z #在某个时间端内执行
+        # filters: StripPrefix=1 #转发后忽略第一层
+  #        - id: two
+  #          uri: lb://ProjectDemoApplication2
+  #          predicates:
+  #            - Path=/demo/** # 路径规则
+  #            - Weight=test,9 #同一个要在同一个group内
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
